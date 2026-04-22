@@ -97,5 +97,4 @@ flutter:
   fonts:
     - family: Billabong
       fonts:
-        - asset: assets/fonts/Billabong.ttf
-        - asset: assets/fonts/InstagramSans.ttf 
+        - asset: assets/fonts/Billabong.ttf 
