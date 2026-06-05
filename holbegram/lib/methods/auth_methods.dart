@@ -17,18 +17,21 @@ class AuthMethode {
     required String email,
     required String password,
   }) async {
-    if (email.isEmpty || password.isEmpty) {
+    final normalizedEmail = email.trim();
+    final normalizedPassword = password.trim();
+
+    if (normalizedEmail.isEmpty || normalizedPassword.isEmpty) {
       return 'Please fill all the fields';
     }
 
     try {
       await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: normalizedEmail,
+        password: normalizedPassword,
       );
       return 'success';
     } on FirebaseAuthException catch (e) {
-      return e.message ?? 'An error occurred';
+      return e.code;
     } catch (e) {
       return e.toString();
     }
@@ -88,6 +91,10 @@ class AuthMethode {
 
     final snapshot = await _firestore.collection('users').doc(user.uid).get();
     return Userd.fromSnap(snapshot);
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 
   Future<String> _uploadImageToCloudinary(Uint8List file) async {
