@@ -71,17 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     isPassword: !_passwordVisible,
                     hintText: 'Password',
                     keyboardType: TextInputType.visiblePassword,
-                    suffixIcon: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                        icon: Icon(
-                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                        ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                     ),
                   ),
@@ -107,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Forgot your login details?'),
+                      const SizedBox(width: 4),
                       const Text(
                         'Get help logging in',
                         style: TextStyle(fontWeight: FontWeight.bold),

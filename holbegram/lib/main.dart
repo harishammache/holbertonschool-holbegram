@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/login_screen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: LoginScreen(
+        emailController: TextEditingController(),
+        passwordController: TextEditingController(),
+      ),
     );
   }
 }
