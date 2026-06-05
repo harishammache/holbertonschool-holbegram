@@ -7,6 +7,7 @@ class Post {
     required this.username,
     required this.likes,
     required this.postId,
+    required this.publicId,
     required this.datePublished,
     required this.postUrl,
     required this.profImage,
@@ -17,6 +18,7 @@ class Post {
   final String username;
   final List<dynamic> likes;
   final String postId;
+  final String publicId;
   final DateTime datePublished;
   final String postUrl;
   final String profImage;
@@ -31,6 +33,7 @@ class Post {
       username: snapshot['username'],
       likes: snapshot['likes'],
       postId: snapshot['postId'],
+        publicId: snapshot['publicId'] ?? snapshot['postId'],
       datePublished:
           published is Timestamp ? published.toDate() : published as DateTime,
       postUrl: snapshot['postUrl'],
@@ -45,6 +48,7 @@ class Post {
       'username': username,
       'likes': likes,
       'postId': postId,
+      'publicId': publicId,
       'datePublished': datePublished,
       'postUrl': postUrl,
       'profImage': profImage,
