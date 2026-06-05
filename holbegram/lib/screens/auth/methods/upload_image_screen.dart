@@ -56,6 +56,10 @@ class _AddPictureState extends State<AddPicture> {
 
 	@override
 	Widget build(BuildContext context) {
+		final email = widget.email;
+		final username = widget.username;
+		final password = widget.password;
+
 		return Scaffold(
 			body: Container(
 				decoration: const BoxDecoration(
@@ -139,7 +143,7 @@ class _AddPictureState extends State<AddPicture> {
 									),
 									const SizedBox(height: 24),
 									Text(
-										widget.username,
+										username,
 										style: const TextStyle(
 											color: Colors.white70,
 											fontSize: 16,
@@ -148,7 +152,7 @@ class _AddPictureState extends State<AddPicture> {
 									),
 									const SizedBox(height: 8),
 									Text(
-										widget.email,
+										email,
 										style: const TextStyle(
 											color: Colors.white54,
 											fontSize: 14,
@@ -166,9 +170,9 @@ class _AddPictureState extends State<AddPicture> {
 												),
 												onPressed: () async {
 													final result = await _authMethods.signUpUser(
-														email: widget.email,
-														password: widget.password,
-														username: widget.username,
+														email: email,
+														password: password,
+														username: username,
 														file: _image,
 													);
 
@@ -176,11 +180,10 @@ class _AddPictureState extends State<AddPicture> {
 														return;
 													}
 
+													final message = result == 'success' ? 'success' : result;
 													ScaffoldMessenger.of(context).showSnackBar(
 														SnackBar(
-															content: Text(
-																result == 'success' ? 'Success' : result,
-															),
+															content: Text(message),
 														),
 													);
 												},
