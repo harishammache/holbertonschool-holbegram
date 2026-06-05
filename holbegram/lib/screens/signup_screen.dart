@@ -5,17 +5,17 @@ import 'package:holbegram/widgets/text_field.dart';
 class SignUp extends StatefulWidget {
   const SignUp({
     super.key,
-    required this.emailController,
-    required this.usernameController,
-    required this.passwordController,
-    required this.passwordConfirmController,
+    this.emailController,
+    this.usernameController,
+    this.passwordController,
+    this.passwordConfirmController,
     this.passwordVisible = true,
   });
 
-  final TextEditingController emailController;
-  final TextEditingController usernameController;
-  final TextEditingController passwordController;
-  final TextEditingController passwordConfirmController;
+  final TextEditingController? emailController;
+  final TextEditingController? usernameController;
+  final TextEditingController? passwordController;
+  final TextEditingController? passwordConfirmController;
   final bool passwordVisible;
 
   @override
@@ -24,36 +24,45 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   late bool _passwordVisible;
+  late final TextEditingController _emailController;
+  late final TextEditingController _usernameController;
+  late final TextEditingController _passwordController;
+  late final TextEditingController _passwordConfirmController;
+  late final bool _ownsEmailController;
+  late final bool _ownsUsernameController;
+  late final bool _ownsPasswordController;
+  late final bool _ownsPasswordConfirmController;
 
   @override
   void initState() {
     super.initState();
     _passwordVisible = widget.passwordVisible;
+    _ownsEmailController = widget.emailController == null;
+    _ownsUsernameController = widget.usernameController == null;
+    _ownsPasswordController = widget.passwordController == null;
+    _ownsPasswordConfirmController = widget.passwordConfirmController == null;
+    _emailController = widget.emailController ?? TextEditingController();
+    _usernameController = widget.usernameController ?? TextEditingController();
+    _passwordController = widget.passwordController ?? TextEditingController();
+    _passwordConfirmController =
+        widget.passwordConfirmController ?? TextEditingController();
   }
 
   @override
   void dispose() {
-    widget.emailController.dispose();
-    widget.usernameController.dispose();
-    widget.passwordController.dispose();
-    widget.passwordConfirmController.dispose();
-    super.dispose();
-  }
-
-  void _goToLogin() {
-    if (Navigator.of(context).canPop()) {
-      Navigator.of(context).pop();
-      return;
+    if (_ownsEmailController) {
+      _emailController.dispose();
     }
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => LoginScreen(
-          emailController: TextEditingController(),
-          passwordController: TextEditingController(),
-        ),
-      ),
-    );
+    if (_ownsUsernameController) {
+      _usernameController.dispose();
+    }
+    if (_ownsPasswordController) {
+      _passwordController.dispose();
+    }
+    if (_ownsPasswordConfirmController) {
+      _passwordConfirmController.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -83,21 +92,21 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   const SizedBox(height: 28),
                   TextFieldInput(
-                    controller: widget.emailController,
+                    controller: _emailController,
                     isPassword: false,
                     hintText: 'Email',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
                   TextFieldInput(
-                    controller: widget.usernameController,
+                    controller: _usernameController,
                     isPassword: false,
                     hintText: 'Username',
                     keyboardType: TextInputType.text,
                   ),
                   const SizedBox(height: 24),
                   TextFieldInput(
-                    controller: widget.passwordController,
+                    controller: _passwordController,
                     isPassword: !_passwordVisible,
                     hintText: 'Password',
                     keyboardType: TextInputType.visiblePassword,
@@ -116,7 +125,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 24),
                   TextFieldInput(
-                    controller: widget.passwordConfirmController,
+                    controller: _passwordConfirmController,
                     isPassword: !_passwordVisible,
                     hintText: 'Confirm password',
                     keyboardType: TextInputType.visiblePassword,
@@ -147,7 +156,14 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         const Text('Already have an account'),
                         TextButton(
-                          onPressed: _goToLogin,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const LoginScreen(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             'Log in',
                             style: TextStyle(
