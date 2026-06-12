@@ -44,7 +44,7 @@ class _BottomNavState extends State<BottomNav> {
         onPageChanged: _onPageChanged,
         children: const [
           Feed(),
-          Search(),
+          SearchPage(),
           AddImage(),
           Favorite(),
           Profile(),
