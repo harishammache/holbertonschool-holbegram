@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class StorageMethods {
-  final String cloudinaryUrl = "https://api.cloudinary.com/v1_1/your-cloud-name/image/upload";
-  final String cloudinaryPreset = "your-upload-preset";
+  final String cloudinaryUrl = "https://api.cloudinary.com/v1_1/dznggazcv/image/upload";
+  final String cloudinaryPreset = "ml_default";
 
   Future<Map<String, String>> uploadImageToCloudinary(
       bool isPost,
