@@ -24,7 +24,6 @@ class PostStorage {
         image,
       );
       final postUrl = uploadResult['secure_url'] ?? '';
-      final publicId = uploadResult['public_id'] ?? postId;
 
       final post = Post(
         caption: caption,
@@ -32,7 +31,6 @@ class PostStorage {
         username: username,
         likes: <dynamic>[],
         postId: postId,
-        publicId: publicId,
         datePublished: DateTime.now(),
         postUrl: postUrl,
         profImage: profImage,

@@ -47,7 +47,7 @@ class _BottomNavState extends State<BottomNav> {
           Search(),
           AddImage(),
           Favorite(),
-          ProfileScreen(),
+          Profile(),
         ],
       ),
       bottomNavigationBar: BottomNavyBar(
