@@ -18,11 +18,14 @@ class PostStorage {
   ) async {
     try {
       final postId = const Uuid().v1();
-      final uploadResult = await _storageMethods.uploadImageToCloudinary(
+
+      final uploadResult = await _storageMethods
+          .uploadImageToCloudinary(
         true,
         'posts',
         image,
       );
+
       final postUrl = uploadResult['secure_url'] ?? '';
 
       final post = Post(
@@ -30,20 +33,31 @@ class PostStorage {
         uid: uid,
         username: username,
         likes: <dynamic>[],
+        savedBy: <dynamic>[],
         postId: postId,
         datePublished: DateTime.now(),
         postUrl: postUrl,
         profImage: profImage,
       );
 
-      await _firestore.collection('posts').doc(postId).set(post.toJson());
+      await _firestore
+          .collection('posts')
+          .doc(postId)
+          .set(post.toJson());
+
       return 'Ok';
     } catch (error) {
       return error.toString();
     }
   }
 
-  Future<void> deletePost(String postId, String publicId) async {
-    await _firestore.collection('posts').doc(postId).delete();
+  Future<void> deletePost(
+    String postId,
+    String publicId,
+  ) async {
+    await _firestore
+        .collection('posts')
+        .doc(postId)
+        .delete();
   }
 }
